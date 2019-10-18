@@ -5,9 +5,9 @@ module.exports = {
     return queryInterface.createTable('users', { 
       id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
       },
 
       name: {
@@ -26,6 +26,12 @@ module.exports = {
         allowNull: false
       },
 
+      privade: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+
       created_at: {
         type: Sequelize.STRING,
         allowNull: false
@@ -35,7 +41,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       }
-      
     });
   },
 

@@ -1,23 +1,20 @@
 import { Router } from 'express'
-import User from './app/models/User'
+import UserController from './app/controllers/UserController'
 
 class Routes {
     constructor() {
         this.routes = Router()
 
         this.getUsers()
+        this.postUsers()
     }
 
     getUsers() {
-        this.routes.get('/users', async (req, res) => {
-            const user = await User.create({
-                name: 'leandro',
-                email: 'leandro@gmail.com',
-                password_hash: '1234567'
-            })
+        this.routes.get('/users', UserController.index)
+    }
 
-            return res.json(user)
-        })
+    postUsers() {
+        this.routes.post('/users', UserController.store)
     }
 }
 
