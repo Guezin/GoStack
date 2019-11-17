@@ -4,6 +4,7 @@ import multer from 'multer'
 import configMulter from './config/multer'
 
 import UserController from './app/controllers/UserController'
+import FileController from './app/controllers/FileController'
 import LoginController from './app/controllers/LoginController'
 import authMiddleware from './app/middlewares/auth'
 
@@ -44,7 +45,7 @@ class Routes {
     }
 
     uploadFiles() {
-        this.route.post('/files', this.upload.single('file'), (req, res) => res.json({ ok: true }))
+        this.route.post('/files', this.upload.single('file'), FileController.store)
     }
 }
 
