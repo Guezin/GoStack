@@ -6,6 +6,7 @@ import configMulter from './config/multer'
 import UserController from './app/controllers/UserController'
 import FileController from './app/controllers/FileController'
 import LoginController from './app/controllers/LoginController'
+import ProviderController from './app/controllers/ProviderController'
 import authMiddleware from './app/middlewares/auth'
 
 class Routes {
@@ -22,30 +23,36 @@ class Routes {
 
         this.updateUser()
         this.uploadFiles()
+        this.getProviders()
+
     }
 
     login() {
-        this.route.post('/login', LoginController.store)
+        return this.route.post('/login', LoginController.store)
     }
 
     middlewares() {
-        this.route.use(authMiddleware)
+        return this.route.use(authMiddleware)
     }
 
     getUsers() {
-        this.route.get('/users', UserController.index)
+        return this.route.get('/users', UserController.index)
     }
 
     postUser() {
-        this.route.post('/users', UserController.store)
+        return this.route.post('/users', UserController.store)
     }
 
     updateUser() {
-        this.route.put('/users', UserController.update)
+        return this.route.put('/users', UserController.update)
     }
 
     uploadFiles() {
-        this.route.post('/files', this.upload.single('file'), FileController.store)
+        return this.route.post('/files', this.upload.single('file'), FileController.store)
+    }
+
+    getProviders() {
+        return this.route.get('/providers', ProviderController.index)
     }
 }
 
