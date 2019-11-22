@@ -1,4 +1,5 @@
-import express, { json } from 'express'
+import express, { json, static } from 'express'
+import { resolve } from 'path'
 
 import Routes from './Routes'
 import './database/connectionDB'
@@ -20,6 +21,7 @@ class Server {
 
     middlewares() {
         this.server.use(json())
+        this.server.use('/files', static(resolve(__dirname, '..', 'tmp', 'uploads')))
     }
 
     routes() {

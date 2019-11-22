@@ -2,21 +2,21 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('files', { 
+    return queryInterface.createTable('appointments', { 
       id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primarykey: true
       },
-      
-      name: {
-        type: Sequelize.STRING,
+
+      date: {
+        type: Sequelize.DATE,
         allowNull: false
       },
 
-      filename: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      canceled_at: {
+        type: Sequelize.DATE
       },
 
       created_at: {
@@ -24,14 +24,12 @@ module.exports = {
         allowNull: false
       },
 
-      updated_at: {
+      update_at: {
         type: Sequelize.DATE,
         allowNull: false
       }
-      
     });
   },
 
-  down: queryInterface => queryInterface.dropTable('files')
-
+  down: queryInterface => queryInterface.dropTable('appointments')
 };
