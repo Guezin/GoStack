@@ -7,6 +7,7 @@ import UserController from './app/controllers/UserController'
 import FileController from './app/controllers/FileController'
 import LoginController from './app/controllers/LoginController'
 import ProviderController from './app/controllers/ProviderController'
+import AppointmentController from './app/controllers/AppointmentController'
 import authMiddleware from './app/middlewares/auth'
 
 class Routes {
@@ -24,6 +25,8 @@ class Routes {
         this.updateUser()
         this.uploadFiles()
         this.getProviders()
+        this.getAppointment()
+        this.postAppointment()
 
     }
 
@@ -53,6 +56,14 @@ class Routes {
 
     getProviders() {
         return this.route.get('/providers', ProviderController.index)
+    }
+
+    getAppointment() {
+        return this.route.get('/appointments', AppointmentController.index)
+    }
+    
+    postAppointment() {
+        return this.route.post('/appointments', AppointmentController.store)
     }
 }
 

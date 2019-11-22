@@ -25,7 +25,7 @@ module.exports = {
         unique: true
       },
 
-      provided: {
+      provider: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
