@@ -3,12 +3,13 @@ import { Router } from 'express'
 import multer from 'multer'
 import configMulter from './config/multer'
 
+import authMiddleware from './app/middlewares/auth'
 import UserController from './app/controllers/UserController'
 import FileController from './app/controllers/FileController'
 import LoginController from './app/controllers/LoginController'
 import ProviderController from './app/controllers/ProviderController'
 import AppointmentController from './app/controllers/AppointmentController'
-import authMiddleware from './app/middlewares/auth'
+import ScheduleController from './app/controllers/ScheduleController'
 
 class Routes {
     constructor() {
@@ -27,6 +28,7 @@ class Routes {
         this.getProviders()
         this.getAppointment()
         this.postAppointment()
+        this.scheduleProviders()
 
     }
 
@@ -65,6 +67,11 @@ class Routes {
     postAppointment() {
         return this.route.post('/appointments', AppointmentController.store)
     }
+
+    scheduleProviders() {
+        return this.route.get('/schedule', ScheduleController.index)
+    }
+
 }
 
 export default new Routes().route
