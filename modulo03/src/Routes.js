@@ -10,6 +10,7 @@ import LoginController from './app/controllers/LoginController'
 import ProviderController from './app/controllers/ProviderController'
 import AppointmentController from './app/controllers/AppointmentController'
 import ScheduleController from './app/controllers/ScheduleController'
+import NotificationController from './app/controllers/NotificationController'
 
 class Routes {
     constructor() {
@@ -29,6 +30,7 @@ class Routes {
         this.getAppointment()
         this.postAppointment()
         this.scheduleProviders()
+        this.getNotifications()
 
     }
 
@@ -70,6 +72,10 @@ class Routes {
 
     scheduleProviders() {
         return this.route.get('/schedule', ScheduleController.index)
+    }
+
+    getNotifications() {
+        return this.route.get('/notifications', NotificationController.index)
     }
 
 }
