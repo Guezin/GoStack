@@ -29,8 +29,10 @@ class Routes {
         this.getProviders()
         this.getAppointment()
         this.postAppointment()
+        this.deleteAppointment()
         this.scheduleProviders()
         this.getNotifications()
+        this.updateNotificantion()
 
     }
 
@@ -70,12 +72,20 @@ class Routes {
         return this.route.post('/appointments', AppointmentController.store)
     }
 
+    deleteAppointment() {
+        return this.route.delete('/appointments/:id', AppointmentController.delete)
+    }
+
     scheduleProviders() {
         return this.route.get('/schedule', ScheduleController.index)
     }
 
     getNotifications() {
         return this.route.get('/notifications', NotificationController.index)
+    }
+
+    updateNotificantion() {
+        return this.route.put('/notifications/:id', NotificationController.update)
     }
 
 }
