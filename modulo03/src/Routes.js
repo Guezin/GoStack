@@ -8,6 +8,7 @@ import UserController from './app/controllers/UserController'
 import FileController from './app/controllers/FileController'
 import LoginController from './app/controllers/LoginController'
 import ProviderController from './app/controllers/ProviderController'
+import AvailableController from './app/controllers/AvailableController'
 import AppointmentController from './app/controllers/AppointmentController'
 import ScheduleController from './app/controllers/ScheduleController'
 import NotificationController from './app/controllers/NotificationController'
@@ -27,6 +28,7 @@ class Routes {
         this.updateUser()
         this.uploadFiles()
         this.getProviders()
+        this.listAvailableTimes()
         this.getAppointment()
         this.postAppointment()
         this.deleteAppointment()
@@ -64,6 +66,10 @@ class Routes {
         return this.route.get('/providers', ProviderController.index)
     }
 
+    listAvailableTimes() {
+        return this.route.get('/providers/:providerId/available', AvailableController.index)
+    }
+
     getAppointment() {
         return this.route.get('/appointments', AppointmentController.index)
     }
@@ -75,6 +81,7 @@ class Routes {
     deleteAppointment() {
         return this.route.delete('/appointments/:id', AppointmentController.delete)
     }
+
 
     scheduleProviders() {
         return this.route.get('/schedule', ScheduleController.index)
