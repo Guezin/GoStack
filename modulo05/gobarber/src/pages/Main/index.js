@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -10,9 +11,26 @@ export default class Main extends Component {
     super(props);
     this.state = {
       newRepository: '',
-      repositories: [{name: 'guezin/gostack'}],
+      repositories: [],
       loading: false,
     };
+  }
+  // Carregar os dados do localStorage
+  componentDidMount() {
+    const repositories = localStorage.getItem('repositories');
+
+    if(repositories) {
+      this.setState({ repositories: JSON.parse(repositories) })
+    }
+  }
+
+  // Salvar os dados no localStorage
+  componentDidUpdate(_, prevState) {
+    const { repositories } = this.state;
+
+    if(prevState.repositories !== repositories) {
+      localStorage.setItem('repositories', JSON.stringify(repositories))
+    }
   }
 
   hadleInputChange = e => {
@@ -70,7 +88,7 @@ export default class Main extends Component {
             <li key={repository.name}>
               {repository.name}
 
-              <a href="">Detalhes</a>
+              <Link to={`/repository/${encodeURIComponent(repository.name)}`}>Detalhes</Link>
             </li>
           ))}
         </List>
