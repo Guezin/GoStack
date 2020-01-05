@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import api from '../../services/api';
 
-import { Container, Form, SubmitButton, List } from './styles';
+import Container from '../../components/Container';
+import { Form, SubmitButton, List } from './styles';
 
 export default class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newRepository: '',
-      repositories: [],
-      loading: false,
-    };
+  static propTypes = {
+    error: PropTypes.bool
   }
+  state = {
+    newRepository: '',
+    repositories: [],
+    loading: false,
+    error: false
+  };
+
+  checkDuplicateRepository(repository, repositories) {
+    repositories.forEach(repos => {
+      if(repos.name.toLowerCase() === repository) {
+        throw new Error()
+      }
+    });
+  }
+
   // Carregar os dados do localStorage
   componentDidMount() {
     const repositories = localStorage.getItem('repositories');
@@ -42,22 +54,32 @@ export default class Main extends Component {
 
     this.setState({ loading: true });
 
-    const { newRepository, repositories } = this.state;
-    const response = await api.get(`/repos/${newRepository}`);
-    const data = {
-      name: response.data.full_name,
-    };
+    try{
+      const { newRepository, repositories } = this.state;
 
-    this.setState({
-      repositories: [...repositories, data],
-      newRepository: '',
-    });
+      this.checkDuplicateRepository(newRepository, repositories)
+      const response = await api.get(`/repos/${newRepository}`);
+
+      const data = {
+        name: response.data.full_name,
+      };
+
+      this.setState({
+        repositories: [...repositories, data],
+        newRepository: '',
+      });
+    } catch(e) {
+      this.setState({ error: true })
+      setTimeout(() => this.setState({ error: false }), 3000)
+      console.log('ERROR')
+    }
 
     this.setState({ loading: false });
+
   };
 
   render() {
-    const { newRepository, repositories, loading } = this.state;
+    const { newRepository, repositories, loading, error } = this.state;
 
     return (
       <Container>
@@ -66,12 +88,13 @@ export default class Main extends Component {
           Repositórios
         </h1>
 
-        <Form onSubmit={this.hadleSubmit}>
+        <Form onSubmit={this.hadleSubmit} error={error}>
           <input
             type="text"
             placeholder="Adicionar repositório"
             value={newRepository}
             onChange={this.hadleInputChange}
+
           />
 
           <SubmitButton loading={loading}>
