@@ -3,6 +3,7 @@ import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
+import { listItems } from '../Teste/index';
 
 import Container from '../../components/Container';
 import { Loading, Owner, IssuesList } from './styles'
@@ -45,6 +46,8 @@ export default class Repository extends Component {
   render() {
     const { repository, issues, loading } = this.state;
 
+    var next = ['next 1', 'next 2', 'next 3', 'next 4', 'next 5']
+
     if(loading) {
       return <Loading>Carregando...</Loading>
     }
@@ -61,6 +64,7 @@ export default class Repository extends Component {
           {issues.map(issue => (
             <li key={String(issue.id)}>
               <img src={issue.user.avatar_url} alt={issue.user.login}/>
+
               <div>
                 <strong>
                   <a href={issue.html_url}>{issue.title}</a>
@@ -72,6 +76,7 @@ export default class Repository extends Component {
               </div>
             </li>
           ))}
+          {console.log(listItems(issues[0].title, 1, 3))}
         </IssuesList>
       </Container>
     )
