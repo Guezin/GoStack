@@ -1,22 +1,19 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Home from './pages/Home/Home';
-import User from './pages/User/User';
+import Home from './pages/Home/index';
+import User from './pages/User/index';
 
 const Routes = createAppContainer(
     createStackNavigator({
         Home: {
             screen: Home,
             navigationOptions: {
-                title: 'Home'
+                title: 'Users'
             }
         },
         User: {
             screen: User,
-            navigationOptions: {
-                title: 'User'
-            }
         },
     },
     {
