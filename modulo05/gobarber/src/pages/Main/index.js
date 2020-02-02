@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List, Pagination } from './styles';
 
 export default class Main extends Component {
   static propTypes = {
@@ -16,7 +16,8 @@ export default class Main extends Component {
     newRepository: '',
     repositories: [],
     loading: false,
-    error: false
+    error: false,
+    activePage: 15,
   };
 
   checkDuplicateRepository(repository, repositories) {
@@ -78,8 +79,13 @@ export default class Main extends Component {
 
   };
 
+  handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({activePage: pageNumber});
+  }
+
   render() {
-    const { newRepository, repositories, loading, error } = this.state;
+    const { newRepository, repositories, loading, error, activePage } = this.state;
 
     return (
       <Container>
@@ -115,6 +121,14 @@ export default class Main extends Component {
             </li>
           ))}
         </List>
+
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={5}
+          pageRangeDisplayed={15}
+          onChange={this.handlePageChange}
+        />
       </Container>
     );
   }

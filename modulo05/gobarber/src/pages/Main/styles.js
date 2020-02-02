@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import pagination from "react-js-pagination";
 
 export const Form = styled.form`
   margin-top: 30px;
@@ -57,4 +58,8 @@ export const List = styled.ul`
     }
 
   }
+`;
+
+export const Pagination = styled(pagination)`
+  border: 1px solid black;
 `;
