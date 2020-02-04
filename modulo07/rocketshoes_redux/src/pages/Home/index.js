@@ -1,86 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 
+import { formatPrice } from '../../util/format';
 import { ProductList } from './styles';
+import api from '../../services/api';
 
-export default function Home() {
-    return (
-        <ProductList>
-            <li>
-                <img
-                    src="https://static.netshoes.com.br/produtos/tenis-adidas-gamecourt-masculino/04/COL-4560-304/COL-4560-304_detalhe1.jpg?resize=280:280"
-                    alt="Tênis"
-                />
-                <strong>Tênis muito legal</strong>
-                <span>R$129,90</span>
+export default class Home extends Component {
+    state = {
+        products: [],
+    };
 
-                <button type="submit">
-                    <div>
-                        <MdAddShoppingCart size={16} color="#FFF" /> 3
-                    </div>
-                    <span>ADICIONAR AO CARRINHO</span>
-                </button>
-            </li>
-            <li>
-                <img
-                    src="https://static.netshoes.com.br/produtos/tenis-adidas-gamecourt-masculino/04/COL-4560-304/COL-4560-304_detalhe1.jpg?resize=280:280"
-                    alt="Tênis"
-                />
-                <strong>Tênis muito legal</strong>
-                <span>R$129,90</span>
+    async componentDidMount() {
+        const response = await api.get('/products');
+        const data = response.data.map(product => ({
+            ...product,
+            priceFormatted: formatPrice(product.price),
+        }));
 
-                <button type="submit">
-                    <div>
-                        <MdAddShoppingCart size={16} color="#FFF" /> 3
-                    </div>
-                    <span>ADICIONAR AO CARRINHO</span>
-                </button>
-            </li>
-            <li>
-                <img
-                    src="https://static.netshoes.com.br/produtos/tenis-adidas-gamecourt-masculino/04/COL-4560-304/COL-4560-304_detalhe1.jpg?resize=280:280"
-                    alt="Tênis"
-                />
-                <strong>Tênis muito legal</strong>
-                <span>R$129,90</span>
+        this.setState({ products: data });
+    }
 
-                <button type="submit">
-                    <div>
-                        <MdAddShoppingCart size={16} color="#FFF" /> 3
-                    </div>
-                    <span>ADICIONAR AO CARRINHO</span>
-                </button>
-            </li>
-            <li>
-                <img
-                    src="https://static.netshoes.com.br/produtos/tenis-adidas-gamecourt-masculino/04/COL-4560-304/COL-4560-304_detalhe1.jpg?resize=280:280"
-                    alt="Tênis"
-                />
-                <strong>Tênis muito legal</strong>
-                <span>R$129,90</span>
+    render() {
+        const { products } = this.state;
 
-                <button type="submit">
-                    <div>
-                        <MdAddShoppingCart size={16} color="#FFF" /> 3
-                    </div>
-                    <span>ADICIONAR AO CARRINHO</span>
-                </button>
-            </li>
-            <li>
-                <img
-                    src="https://static.netshoes.com.br/produtos/tenis-adidas-gamecourt-masculino/04/COL-4560-304/COL-4560-304_detalhe1.jpg?resize=280:280"
-                    alt="Tênis"
-                />
-                <strong>Tênis muito legal</strong>
-                <span>R$129,90</span>
+        return (
+            <ProductList>
+                {products.map(product => (
+                    <li key={product.id}>
+                        <img src={product.image} alt={product.title} />
+                        <strong>{product.title}</strong>
+                        <span>{product.priceFormatted}</span>
 
-                <button type="submit">
-                    <div>
-                        <MdAddShoppingCart size={16} color="#FFF" /> 3
-                    </div>
-                    <span>ADICIONAR AO CARRINHO</span>
-                </button>
-            </li>
-        </ProductList>
-    );
+                        <button type="submit">
+                            <div>
+                                <MdAddShoppingCart size={16} color="#FFF" /> 3
+                            </div>
+                            <span>ADICIONAR AO CARRINHO</span>
+                        </button>
+                    </li>
+                ))}
+            </ProductList>
+        );
+    }
 }
