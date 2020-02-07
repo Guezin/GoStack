@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
