@@ -14,86 +14,86 @@ import ScheduleController from './app/controllers/ScheduleController'
 import NotificationController from './app/controllers/NotificationController'
 
 class Routes {
-    constructor() {
-        this.route = new Router()
-        this.upload = multer(configMulter)
+	constructor() {
+		this.route = new Router()
+		this.upload = multer(configMulter)
 
-        this.login()
+		this.login()
 
-        this.getUsers()
-        this.postUser()
+		this.getUsers()
+		this.postUser()
 
-        this.middlewares()
+		this.middlewares()
 
-        this.updateUser()
-        this.uploadFiles()
-        this.getProviders()
-        this.listAvailableTimes()
-        this.getAppointment()
-        this.postAppointment()
-        this.deleteAppointment()
-        this.scheduleProviders()
-        this.getNotifications()
-        this.updateNotificantion()
+		this.updateUser()
+		this.uploadFiles()
+		this.getProviders()
+		this.listAvailableTimes()
+		this.getAppointment()
+		this.postAppointment()
+		this.deleteAppointment()
+		this.scheduleProviders()
+		this.getNotifications()
+		this.updateNotificantion()
 
-    }
+	}
 
-    login() {
-        return this.route.post('/login', LoginController.store)
-    }
+	login() {
+		return this.route.post('/login', LoginController.store)
+	}
 
-    middlewares() {
-        return this.route.use(authMiddleware)
-    }
+	middlewares() {
+		return this.route.use(authMiddleware)
+	}
 
-    getUsers() {
-        return this.route.get('/users', UserController.index)
-    }
+	getUsers() {
+		return this.route.get('/users', UserController.index)
+	}
 
-    postUser() {
-        return this.route.post('/users', UserController.store)
-    }
+	postUser() {
+		return this.route.post('/users', UserController.store)
+	}
 
-    updateUser() {
-        return this.route.put('/users', UserController.update)
-    }
+	updateUser() {
+		return this.route.put('/users', UserController.update)
+	}
 
-    uploadFiles() {
-        return this.route.post('/files', this.upload.single('file'), FileController.store)
-    }
+	uploadFiles() {
+		return this.route.post('/files', this.upload.single('file'), FileController.store)
+	}
 
-    getProviders() {
-        return this.route.get('/providers', ProviderController.index)
-    }
+	getProviders() {
+		return this.route.get('/providers', ProviderController.index)
+	}
 
-    listAvailableTimes() {
-        return this.route.get('/providers/:providerId/available', AvailableController.index)
-    }
+	listAvailableTimes() {
+		return this.route.get('/providers/:providerId/available', AvailableController.index)
+	}
 
-    getAppointment() {
-        return this.route.get('/appointments', AppointmentController.index)
-    }
-    
-    postAppointment() {
-        return this.route.post('/appointments', AppointmentController.store)
-    }
+	getAppointment() {
+		return this.route.get('/appointments', AppointmentController.index)
+	}
 
-    deleteAppointment() {
-        return this.route.delete('/appointments/:id', AppointmentController.delete)
-    }
+	postAppointment() {
+		return this.route.post('/appointments', AppointmentController.store)
+	}
+
+	deleteAppointment() {
+		return this.route.delete('/appointments/:id', AppointmentController.delete)
+	}
 
 
-    scheduleProviders() {
-        return this.route.get('/schedule', ScheduleController.index)
-    }
+	scheduleProviders() {
+		return this.route.get('/schedule', ScheduleController.index)
+	}
 
-    getNotifications() {
-        return this.route.get('/notifications', NotificationController.index)
-    }
+	getNotifications() {
+		return this.route.get('/notifications', NotificationController.index)
+	}
 
-    updateNotificantion() {
-        return this.route.put('/notifications/:id', NotificationController.update)
-    }
+	updateNotificantion() {
+		return this.route.put('/notifications/:id', NotificationController.update)
+	}
 
 }
 
