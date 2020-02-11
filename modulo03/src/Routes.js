@@ -22,11 +22,11 @@ class Routes {
 
 		this.getUsers()
 		this.postUser()
+		this.uploadFiles()
 
 		this.middlewares()
 
 		this.updateUser()
-		this.uploadFiles()
 		this.getProviders()
 		this.listAvailableTimes()
 		this.getAppointment()
