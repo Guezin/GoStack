@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
-import api from '../../services/api'
-
 import logo from '../../assets/logo.svg';
 import { signInRequest } from '../../store/modules/auth/actions';
 
@@ -23,9 +21,7 @@ export default function SingIn() {
 	const dispatch = useDispatch();
 
 	async function handleSubmit({ email, password }) {
-		//dispatch(signInRequest(email, password));
-		const response = await api.post('/login', { email, password })
-		console.tron.log(response.data)
+		return;
 	};
 
 	return (
