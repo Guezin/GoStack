@@ -5,6 +5,7 @@ import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 import logo from '../../assets/logo.svg';
+
 import { signInRequest } from '../../store/modules/auth/actions';
 
 export default function SingIn() {
@@ -20,8 +21,8 @@ export default function SingIn() {
 
 	const dispatch = useDispatch();
 
-	async function handleSubmit({ email, password }) {
-		return;
+	function handleSubmit({ email, password }) {
+		dispatch(signInRequest(email, password));
 	};
 
 	return (
