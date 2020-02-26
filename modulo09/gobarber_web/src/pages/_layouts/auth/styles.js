@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { darken } from 'polished'
+import { darken } from 'polished';
 
 export const Wrapper = styled.div`
 	height: 100%;
-	background: linear-gradient(90deg, #7159C1, #AB59C1);
+	background: linear-gradient(-90deg, #7159c1, #ab59c1);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
 `;
 
 export const Content = styled.div`
@@ -26,11 +25,11 @@ export const Content = styled.div`
 			border-radius: 4px;
 			height: 44px;
 			padding: 0 15px;
-			color: #FFF;
+			color: #fff;
 			margin: 0 0 15px 0;
 
 			&::placeholder {
-				color: rgba(255, 255, 255, 0.7)
+				color: rgba(255, 255, 255, 0.7);
 			}
 		}
 
@@ -46,19 +45,19 @@ export const Content = styled.div`
 			border: none;
 			border-radius: 4px;
 			font-weight: bold;
-			color: #FFF;
-			background: #3B9EFF;
+			color: #fff;
+			background: #3b9eff;
 			font-size: 16px;
 			transition: background 0.2s;
 
 			&:hover {
-				background: ${darken(0.04, '#3B9EFF')}
+				background: ${darken(0.04, '#3B9EFF')};
 			}
 		}
 
 		a {
 			margin-top: 15px;
-			color: #FFF;
+			color: #fff;
 			font-size: 16px;
 			opacity: 0.8;
 
@@ -66,6 +65,5 @@ export const Content = styled.div`
 				opacity: 1;
 			}
 		}
-
 	}
 `;
