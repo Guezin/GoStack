@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/Server.js",
-    "queue": "nodemon src/queue.js"
+    "queue": "nodemon src/queue.js",
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/Server.js"
   },
   "keywords": [],
   "author": "",
