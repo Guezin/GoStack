@@ -16,8 +16,16 @@ export default function App() {
     })
   }, []);
 
-  function handleProject() {
-    return setProject([...projects, `Novo Projeto ${new Date().getTime()}`])
+  async function handleProject() {
+    const response = await api.post('/repositories', {
+      title: `Novo Projeto ${new Date().getTime()}`,
+      url: 'www.novo-projeto.com',
+      techs: ['ReactJS']
+    });
+
+    const repositories = response.data;
+
+    return setProject([...projects, repositories]);
   }
 
   return (
