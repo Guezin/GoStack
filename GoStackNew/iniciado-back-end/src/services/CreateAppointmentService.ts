@@ -27,7 +27,7 @@ class CreateAppointmentService {
     )
 
     if (findAppointmentsInSameDate) {
-      throw Error('This appointment already booked')
+      throw new Error('This appointment already booked')
     }
 
     const appointment = appointmentsController.create({
