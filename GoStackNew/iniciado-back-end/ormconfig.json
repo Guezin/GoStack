@@ -5,10 +5,14 @@
   "username": "postgres",
   "password": "123456",
   "database": "gobarber",
+  "synchronize": true,
+  "entities": [
+    "./src/models/*.ts"
+  ],
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
   "cli": {
-    "migrationsDir": "/src/database/migrations"
+    "migrationsDir": "./src/database/migrations"
   }
 }

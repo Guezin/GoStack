@@ -5,6 +5,7 @@
  */
 
 import { startOfHour } from 'date-fns'
+import { getCustomRepository } from 'typeorm'
 
 import Appointment from '../models/Appointment'
 import AppointmentsController from '../controllers/AppointmentsController'
@@ -15,16 +16,10 @@ interface RequestDTO {
 }
 
 class CreateAppointmentService {
-  private appointmentsController: AppointmentsController
-
-  constructor(appointmentsController: AppointmentsController) {
-    this.appointmentsController = appointmentsController
-  }
-
-  public execute({ provider, date }: RequestDTO): Appointment {
+  public async execute({ provider, date }: RequestDTO): Promise<Appointment> {
+    const appointmentsController = getCustomRepository(AppointmentsController)
     const appointmentDate = startOfHour(date)
-
-    const findAppointmentsInSameDate = this.appointmentsController.findByDate(
+    const findAppointmentsInSameDate = await appointmentsController.findByDate(
       appointmentDate
     )
 
@@ -32,10 +27,12 @@ class CreateAppointmentService {
       throw Error('This appointment already booked')
     }
 
-    const appointment = this.appointmentsController.create({
+    const appointment = appointmentsController.create({
       provider,
       date: appointmentDate
     })
+
+    await appointmentsController.save(appointment)
 
     return appointment
   }
