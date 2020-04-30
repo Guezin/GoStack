@@ -11,12 +11,15 @@ import Appointment from '../models/Appointment'
 import AppointmentsController from '../controllers/AppointmentsController'
 
 interface RequestDTO {
-  provider: string
+  provider_id: string
   date: Date
 }
 
 class CreateAppointmentService {
-  public async execute({ provider, date }: RequestDTO): Promise<Appointment> {
+  public async execute({
+    provider_id,
+    date
+  }: RequestDTO): Promise<Appointment> {
     const appointmentsController = getCustomRepository(AppointmentsController)
     const appointmentDate = startOfHour(date)
     const findAppointmentsInSameDate = await appointmentsController.findByDate(
@@ -28,7 +31,7 @@ class CreateAppointmentService {
     }
 
     const appointment = appointmentsController.create({
-      provider,
+      provider_id,
       date: appointmentDate
     })
 
