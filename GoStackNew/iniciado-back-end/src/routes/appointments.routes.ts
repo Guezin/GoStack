@@ -2,15 +2,14 @@ import { Router } from 'express'
 import { parseISO } from 'date-fns'
 import { getCustomRepository } from 'typeorm'
 
-import AppointmentsController from '../controllers/AppointmentsController'
+import AppointmentsRepository from '../repositories/AppointmentsRepository'
 import CreateAppointmentService from '../services/CreateAppointmentService'
 
 const appointmentsRouter = Router()
 
 appointmentsRouter.get('/', async (request, response) => {
-  console.log(request.user)
-  const appointmentController = getCustomRepository(AppointmentsController)
-  const appointmentsAll = await appointmentController.find()
+  const appointmentRepository = getCustomRepository(AppointmentsRepository)
+  const appointmentsAll = await appointmentRepository.find()
 
   return response.json(appointmentsAll)
 })
