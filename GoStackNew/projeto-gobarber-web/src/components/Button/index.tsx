@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { ButtonHTMLAttributes } from 'react';
 
 import { Container } from './styles';
