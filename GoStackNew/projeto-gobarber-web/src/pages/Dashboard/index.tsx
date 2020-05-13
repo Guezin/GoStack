@@ -1,5 +1,25 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const Dashboard: React.FC = () => <h1>Dashboard</h1>;
+import { useAuth } from '../../hooks/auth';
 
+const Dashboard: React.FC = () => {
+  const { signOut } = useAuth();
+  const history = useHistory();
+
+  const handleSignOut = useCallback(() => {
+    signOut();
+
+    history.push('/');
+  }, [signOut, history]);
+
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <button type="button" onClick={handleSignOut}>
+        Logount
+      </button>
+    </>
+  );
+};
 export default Dashboard;
