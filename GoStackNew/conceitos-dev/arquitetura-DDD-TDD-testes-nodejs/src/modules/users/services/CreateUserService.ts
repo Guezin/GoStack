@@ -1,4 +1,5 @@
 import { hash } from 'bcryptjs'
+import { injectable, inject } from 'tsyringe'
 
 import AppError from '@shared/errors/AppError'
 
@@ -12,10 +13,14 @@ interface IRequest {
   password: string
 }
 
+@injectable()
 class CreateUserService {
   private userRepository: IUsersRepository
 
-  constructor(userRepository: IUsersRepository) {
+  constructor(
+    @inject('UsersRepository')
+    userRepository: IUsersRepository
+  ) {
     this.userRepository = userRepository
   }
 

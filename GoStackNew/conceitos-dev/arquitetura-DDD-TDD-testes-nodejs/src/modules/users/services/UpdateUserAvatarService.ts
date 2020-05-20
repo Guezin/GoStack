@@ -1,5 +1,6 @@
 import { join } from 'path'
 import fs from 'fs'
+import { injectable, inject } from 'tsyringe'
 
 import uploadConfig from '@config/upload'
 import AppError from '@shared/errors/AppError'
@@ -13,10 +14,14 @@ interface IRequest {
   avatarFilename: string
 }
 
+@injectable()
 class UpdateUserAvatarService {
   private userRepository: IUserRepository
 
-  constructor(userRepository: IUserRepository) {
+  constructor(
+    @inject('UsersRepository')
+    userRepository: IUserRepository
+  ) {
     this.userRepository = userRepository
   }
 

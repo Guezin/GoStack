@@ -8,6 +8,7 @@ import uploadConfig from '@config/upload'
 import middlewareError from '@modules/users/infra/http/middlewares/error'
 
 import '../typeorm/database'
+import '@shared/container'
 
 const server = express()
 
