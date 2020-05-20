@@ -3,11 +3,11 @@ import express, { json } from 'express'
 import cors from 'cors'
 import 'express-async-errors'
 
-import './database'
+import '../typeorm/database'
 
 import routes from './routes'
-import uploadConfig from './config/upload'
-import middlewareError from './middlewares/error'
+import uploadConfig from '@config/upload'
+import middlewareError from '@modules/users/infra/http/middlewares/error'
 
 const server = express()
 
