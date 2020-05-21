@@ -1,41 +1,41 @@
-import { getRepository, Repository } from 'typeorm'
+import { getRepository, Repository } from 'typeorm';
 
-import Appointment from '../entities/Appointment'
+import Appointment from '../entities/Appointment';
 
-import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
-import ICreateApoointmentDTO from '@modules/appointments/infra/dtos/ICreateAppointmentDTO'
+import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
+import ICreateAppointmentDTO from '@modules/appointments/infra/dtos/ICreateAppointmentDTO';
 
 class AppointmentsRepository implements IAppointmentsRepository {
-  private ormRepository: Repository<Appointment>
+  private ormRepository: Repository<Appointment>;
 
   constructor() {
-    this.ormRepository = getRepository(Appointment)
+    this.ormRepository = getRepository(Appointment);
   }
 
   public async findAll(): Promise<Appointment[]> {
-    const appointments = await this.ormRepository.find()
+    const appointments = await this.ormRepository.find();
 
-    return appointments
+    return appointments;
   }
 
   public async findByDate(date: Date): Promise<Appointment | undefined> {
     const findAppointment = await this.ormRepository.findOne({
-      where: { date }
-    })
+      where: { date },
+    });
 
-    return findAppointment
+    return findAppointment;
   }
 
   public async create({
     provider_id,
-    date
-  }: ICreateApoointmentDTO): Promise<Appointment> {
-    const appointment = this.ormRepository.create({ provider_id, date })
+    date,
+  }: ICreateAppointmentDTO): Promise<Appointment> {
+    const appointment = this.ormRepository.create({ provider_id, date });
 
-    await this.ormRepository.save(appointment)
+    await this.ormRepository.save(appointment);
 
-    return appointment
+    return appointment;
   }
 }
 
-export default AppointmentsRepository
+export default AppointmentsRepository;
