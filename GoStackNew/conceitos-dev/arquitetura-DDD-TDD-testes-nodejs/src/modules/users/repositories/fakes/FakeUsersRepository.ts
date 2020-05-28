@@ -2,9 +2,10 @@ import { uuid } from 'uuidv4';
 
 import User from '../../infra/typeorm/entities/User';
 
+import FakeUserRepository from '../IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
-class FakeUsersRepository {
+class FakeUsersRepository implements FakeUserRepository {
   private users: User[] = [];
 
   public async findByEmail(email: string): Promise<User | undefined> {
