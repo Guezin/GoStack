@@ -1,46 +1,51 @@
-import { hash } from 'bcryptjs'
-import { injectable, inject } from 'tsyringe'
+import { injectable, inject } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError'
+import AppError from '@shared/errors/AppError';
 
-import User from '@modules/users/infra/typeorm/entities/User'
+import User from '@modules/users/infra/typeorm/entities/User';
 
-import IUsersRepository from '../repositories/IUsersRepository'
+import IUsersRepository from '../repositories/IUsersRepository';
+import IProviderEncryptedPassword from '../providers/ProvideEncryptedPassword/models/IProviderEncryptedPassword';
 
 interface IRequest {
-  name: string
-  email: string
-  password: string
+  name: string;
+  email: string;
+  password: string;
 }
 
 @injectable()
 class CreateUserService {
-  private userRepository: IUsersRepository
+  private userRepository: IUsersRepository;
+  private encryptedPassword: IProviderEncryptedPassword;
 
   constructor(
     @inject('UsersRepository')
-    userRepository: IUsersRepository
+    userRepository: IUsersRepository,
+
+    @inject('ProviderEncryptedPassword')
+    encryptedPassword: IProviderEncryptedPassword,
   ) {
-    this.userRepository = userRepository
+    this.userRepository = userRepository;
+    this.encryptedPassword = encryptedPassword;
   }
 
   public async execute({ name, email, password }: IRequest): Promise<User> {
-    const checkUserExists = await this.userRepository.findByEmail(email)
+    const checkUserExists = await this.userRepository.findByEmail(email);
 
     if (checkUserExists) {
-      throw new AppError('Email address already used.', 401)
+      throw new AppError('Email address already used.', 401);
     }
 
-    const hashedPassword = await hash(password, 8)
+    const hashedPassword = await this.encryptedPassword.generateHash(password);
 
     const user = this.userRepository.create({
       name,
       email,
-      password: hashedPassword
-    })
+      password: hashedPassword,
+    });
 
-    return user
+    return user;
   }
 }
 
-export default CreateUserService
+export default CreateUserService;
