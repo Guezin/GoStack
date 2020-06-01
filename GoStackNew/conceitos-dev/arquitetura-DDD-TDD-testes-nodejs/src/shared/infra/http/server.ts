@@ -3,9 +3,10 @@ import express, { json } from 'express';
 import cors from 'cors';
 import 'express-async-errors';
 
+import middlewareError from '@modules/users/infra/http/middlewares/error';
+
 import routes from './routes';
 import uploadConfig from '@config/upload';
-import middlewareError from '@modules/users/infra/http/middlewares/error';
 
 import '../typeorm/database';
 import '@shared/container';
