@@ -57,7 +57,7 @@ class UpdateProfile {
       );
 
       if (!checkOldPassword) {
-        throw new AppError('Old password does not match.');
+        throw new AppError('Old password does not match');
       }
     }
 
