@@ -1,12 +1,16 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import AppointmentsController from '../controller/AppointmentsController'
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
-const appointmentsRouter = Router()
-const appointmentsController = new AppointmentsController()
+import AppointmentsController from '../controller/AppointmentsController';
 
-appointmentsRouter.get('/', appointmentsController.index)
+const appointmentsRouter = Router();
+const appointmentsController = new AppointmentsController();
 
-appointmentsRouter.post('/', appointmentsController.create)
+appointmentsRouter.use(ensureAuthenticated);
 
-export default appointmentsRouter
+appointmentsRouter.get('/', appointmentsController.index);
+
+appointmentsRouter.post('/', appointmentsController.create);
+
+export default appointmentsRouter;
