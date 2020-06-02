@@ -33,7 +33,7 @@ class ListProvidermonthAvailabilityService {
         year,
       },
     );
-    console.log(appointments);
+
     const numberOfDaysInMonth = getDaysInMonth(new Date(year, month - 1));
     const eachDayArray = Array.from(
       { length: numberOfDaysInMonth },
