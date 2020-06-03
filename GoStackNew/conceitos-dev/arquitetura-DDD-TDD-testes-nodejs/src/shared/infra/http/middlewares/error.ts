@@ -16,7 +16,7 @@ export default (
   }
 
   return response.status(500).json({
-    erro: error,
+    err: error,
     status: 'Error',
     message: 'Internal server error',
   });

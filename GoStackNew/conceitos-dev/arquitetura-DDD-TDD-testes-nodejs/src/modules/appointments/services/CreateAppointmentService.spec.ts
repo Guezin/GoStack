@@ -1,10 +1,12 @@
 import AppError from '@shared/errors/AppError';
 
 import FakeAppointmentRepository from '../repositories/fakes/FakeAppointmentRepository';
+import FakeNotificationRepository from '@modules/notifications/repositories/fakes/FakeNotificationRepository';
 
 import CreateAppointmentService from './CreateAppointmentService';
 
 let fakeAppointmentRepository: FakeAppointmentRepository;
+let fakeNotificationRepository: FakeNotificationRepository;
 let createAppointment: CreateAppointmentService;
 
 let _date: Date;
@@ -12,7 +14,11 @@ let _date: Date;
 describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentRepository = new FakeAppointmentRepository();
-    createAppointment = new CreateAppointmentService(fakeAppointmentRepository);
+    fakeNotificationRepository = new FakeNotificationRepository();
+    createAppointment = new CreateAppointmentService(
+      fakeAppointmentRepository,
+      fakeNotificationRepository,
+    );
 
     _date = new Date(Date.now());
   });
@@ -37,7 +43,7 @@ describe('CreateAppointment', () => {
       _date.getUTCFullYear(),
       _date.getMonth(),
       _date.getDay(),
-      _date.getHours() + 1,
+      17,
     );
 
     await createAppointment.execute({
@@ -58,11 +64,7 @@ describe('CreateAppointment', () => {
   it('should not be able to create an appointments on a past date', async () => {
     await expect(
       createAppointment.execute({
-        date: new Date(
-          _date.getUTCFullYear(),
-          _date.getMonth(),
-          _date.getDay() - 1,
-        ),
+        date: new Date(),
         user_id: 'user-id',
         provider_id: 'provider-id',
       }),
