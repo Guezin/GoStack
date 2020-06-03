@@ -19,8 +19,6 @@
     "type": "mongodb",
     "host": "localhost",
     "port": 27017,
-    "username": "postgres",
-    "password": "123456",
     "database": "gobarber",
     "useUnifiedTopology": true,
     "entities": ["./src/modules/**/infra/typeorm/schemas/*.ts"]
