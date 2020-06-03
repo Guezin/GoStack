@@ -35,6 +35,7 @@ class CreateAppointmentService {
     date,
   }: IRequestDTO): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
+
     const findAppointmentsInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
     );
