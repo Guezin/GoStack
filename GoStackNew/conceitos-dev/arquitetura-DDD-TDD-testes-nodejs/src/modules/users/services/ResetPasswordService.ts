@@ -3,8 +3,6 @@ import { isAfter, addHours } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
 
-// import User from '@modules/users/infra/typeorm/entities/User';
-
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 import IProviderEncryptedPassword from '../providers/ProvideEncryptedPassword/models/IProviderEncryptedPassword';
