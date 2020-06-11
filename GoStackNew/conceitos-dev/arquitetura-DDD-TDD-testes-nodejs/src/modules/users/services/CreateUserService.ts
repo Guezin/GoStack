@@ -6,6 +6,7 @@ import User from '@modules/users/infra/typeorm/entities/User';
 
 import IUsersRepository from '../repositories/IUsersRepository';
 import IProviderEncryptedPassword from '../providers/ProvideEncryptedPassword/models/IProviderEncryptedPassword';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
   name: string;
@@ -24,6 +25,9 @@ class CreateUserService {
 
     @inject('ProviderEncryptedPassword')
     encryptedPassword: IProviderEncryptedPassword,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {
     this.userRepository = userRepository;
     this.encryptedPassword = encryptedPassword;
@@ -43,6 +47,8 @@ class CreateUserService {
       email,
       password: hashedPassword,
     });
+
+    await this.cacheProvider.invalidatePrefix('providers-list');
 
     return user;
   }
