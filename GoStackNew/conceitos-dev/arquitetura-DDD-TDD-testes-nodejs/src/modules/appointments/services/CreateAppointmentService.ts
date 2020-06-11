@@ -56,7 +56,7 @@ class CreateAppointmentService {
         'You can only create appointments between 8am and 5pm.',
       );
     }
-    console.log(appointmentDate);
+
     if (isBefore(appointmentDate, Date.now())) {
       throw new AppError("You can't create an appointment on a past date.");
     }

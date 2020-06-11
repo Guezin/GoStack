@@ -14,7 +14,7 @@ export default (
       message: error.message,
     });
   }
-
+  console.log(error);
   return response.status(500).json({
     err: error,
     status: 'Error',

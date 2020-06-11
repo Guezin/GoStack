@@ -36,7 +36,7 @@ class ListProviderDayAvailabilityService {
         year,
       },
     );
-
+    console.log(appointments);
     const hourStart = 8;
     const eachHourArray = Array.from(
       { length: 10 },
