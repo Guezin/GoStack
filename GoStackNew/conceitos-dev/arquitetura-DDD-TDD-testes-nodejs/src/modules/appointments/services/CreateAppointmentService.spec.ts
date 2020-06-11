@@ -2,11 +2,13 @@ import AppError from '@shared/errors/AppError';
 
 import FakeAppointmentRepository from '../repositories/fakes/FakeAppointmentRepository';
 import FakeNotificationRepository from '@modules/notifications/repositories/fakes/FakeNotificationRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 
 import CreateAppointmentService from './CreateAppointmentService';
 
 let fakeAppointmentRepository: FakeAppointmentRepository;
 let fakeNotificationRepository: FakeNotificationRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createAppointment: CreateAppointmentService;
 
 let _date: Date;
@@ -15,21 +17,16 @@ describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentRepository = new FakeAppointmentRepository();
     fakeNotificationRepository = new FakeNotificationRepository();
+    fakeCacheProvider = new FakeCacheProvider();
     createAppointment = new CreateAppointmentService(
       fakeAppointmentRepository,
       fakeNotificationRepository,
+      fakeCacheProvider,
     );
-
-    _date = new Date(Date.now());
   });
   it('should be able to create a new appointment ', async () => {
     const appointment = await createAppointment.execute({
-      date: new Date(
-        _date.getUTCFullYear(),
-        _date.getMonth(),
-        _date.getDay(),
-        17,
-      ),
+      date: new Date(2020, 6, 11, 14),
       user_id: 'user-id',
       provider_id: 'provider-id',
     });
@@ -39,12 +36,7 @@ describe('CreateAppointment', () => {
   });
 
   it('should not be able to create two appointments on the same time', async () => {
-    const appointmentDate = new Date(
-      _date.getUTCFullYear(),
-      _date.getMonth(),
-      _date.getDay(),
-      17,
-    );
+    const appointmentDate = new Date(2020, 6, 11, 16);
 
     await createAppointment.execute({
       date: appointmentDate,

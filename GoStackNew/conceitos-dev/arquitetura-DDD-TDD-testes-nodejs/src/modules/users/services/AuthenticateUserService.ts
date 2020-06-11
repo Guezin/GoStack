@@ -47,10 +47,6 @@ class AuthenticateUserService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    if (!secret) {
-      throw new AppError('JWT secret cannot be empty!');
-    }
-
     const token = sign({}, secret, {
       subject: user.id,
       expiresIn,

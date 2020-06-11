@@ -2,12 +2,11 @@ import AppError from '@shared/errors/AppError';
 
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeBCryptHash from '../providers/ProvideEncryptedPassword/fakes/FakeBCryptHash';
-import CreateUserService from './CreateUserService';
+
 import AuthenticateUserService from './AuthenticateUserService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeBCryptHash: FakeBCryptHash;
-let createUserService: CreateUserService;
 let authenticateUserService: AuthenticateUserService;
 
 describe('AuthenticateUser', () => {
@@ -15,17 +14,13 @@ describe('AuthenticateUser', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeBCryptHash = new FakeBCryptHash();
 
-    createUserService = new CreateUserService(
-      fakeUsersRepository,
-      fakeBCryptHash,
-    );
     authenticateUserService = new AuthenticateUserService(
       fakeUsersRepository,
       fakeBCryptHash,
     );
   });
   it('should be able to autheticate', async () => {
-    const user = await createUserService.execute({
+    const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@email.com',
       password: '123456',
@@ -55,7 +50,7 @@ describe('AuthenticateUser', () => {
       fakeBCryptHash,
     );
 
-    await createUserService.execute({
+    await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@email.com',
       password: '123456',
