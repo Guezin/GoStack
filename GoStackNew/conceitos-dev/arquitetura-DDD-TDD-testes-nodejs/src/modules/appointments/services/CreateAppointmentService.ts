@@ -10,9 +10,10 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import Appointment from '../infra/typeorm/entities/Appointment';
-import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 
+import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
 import INotificationRepository from '@modules/notifications/repositories/INotificationRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequestDTO {
   provider_id: string;
@@ -24,6 +25,7 @@ interface IRequestDTO {
 class CreateAppointmentService {
   private appointmentsRepository: IAppointmentsRepository;
   private notificationsRepository: INotificationRepository;
+  private cacheProvider: ICacheProvider;
 
   constructor(
     @inject('AppointmentsRepository')
@@ -31,9 +33,13 @@ class CreateAppointmentService {
 
     @inject('NotificationRepository')
     notificationsRepository: INotificationRepository,
+
+    @inject('CacheProvider')
+    cacheProvider: ICacheProvider,
   ) {
     this.appointmentsRepository = appointmentsRepository;
     this.notificationsRepository = notificationsRepository;
+    this.cacheProvider = cacheProvider;
   }
 
   public async execute({
@@ -77,6 +83,13 @@ class CreateAppointmentService {
       recipient_id: provider_id,
       content: `Novo agendamento para ${dateFormatted}.`,
     });
+
+    await this.cacheProvider.invalidate(
+      `provider-appointments:${provider_id}:${format(
+        appointmentDate,
+        'yyyy-M-d',
+      )}`,
+    );
 
     return appointment;
   }
