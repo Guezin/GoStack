@@ -7,7 +7,7 @@ import ICreateAppointmentDTO from '@modules/appointments/infra/dtos/ICreateAppoi
 export default interface IAppointmentsRepository {
   create(data: ICreateAppointmentDTO): Promise<Appointment>;
   findAll(): Promise<Appointment[]>;
-  findByDate(date: Date): Promise<Appointment | undefined>;
+  findByDate(date: Date, provider_id: string): Promise<Appointment | undefined>;
   findAllInMonthFromProvider(
     data: IFindAllMonthFromProviderDTO,
   ): Promise<Appointment[]>;
