@@ -7,7 +7,7 @@ export interface ToastMessage {
   id: string;
   type?: 'info' | 'success' | 'error';
   title: string;
-  description: string;
+  description?: string;
 }
 
 interface ToastContextData {
