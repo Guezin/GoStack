@@ -20,6 +20,7 @@
     "react-icons": "^3.10.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-spinners": "^0.8.3",
     "react-spring": "^8.0.27",
     "styled-components": "^5.1.0",
     "typescript": "~3.7.2",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@emotion/core": "^10.0.28",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.0",
     "@types/yup": "^0.28.1",

@@ -1,7 +1,7 @@
 {
   "env": {
-      "browser": true,
-      "es6": true
+    "browser": true,
+    "es6": true
   },
   "extends": [
     "plugin:react/recommended",
@@ -11,22 +11,23 @@
     "plugin:prettier/recommended"
   ],
   "globals": {
-      "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly"
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "ecmaFeatures": {
-          "jsx": true
-      },
-      "ecmaVersion": 2018,
-      "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
   "plugins": [
-      "react",
-      "react-hooks",
-      "@typescript-eslint",
-      "prettier"
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier",
+    "emotion"
   ],
   "rules": {
     "prettier/prettier": "error",
@@ -38,6 +39,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/prefer-default-export": "off",
     "no-unused-expressions": "off",
+    "no-undef": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -57,7 +59,8 @@
       "files": ["*.ts", "*.tsx"],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": [
-          "error", { "allowExpressions": true }
+          "error",
+          { "allowExpressions": true }
         ]
       }
     }
