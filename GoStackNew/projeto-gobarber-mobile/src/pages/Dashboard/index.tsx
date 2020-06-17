@@ -23,11 +23,7 @@ import {
   ProvidersListTitle,
 } from './styles';
 
-export interface Provider {
-  id: string;
-  name: string;
-  avatar_url: string;
-}
+import { Provider } from '../types';
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
