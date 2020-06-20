@@ -43,6 +43,7 @@
       }
     ],
     "import/prefer-default-export": "off",
+    "@typescript-eslint/camelcase": "off",
     "no-unused-expressions": "off",
     "no-console": [
       "error",
