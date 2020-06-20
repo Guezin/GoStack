@@ -44,6 +44,16 @@
     ],
     "import/prefer-default-export": "off",
     "no-unused-expressions": "off",
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "tron",
+          "log"
+        ]
+      }
+    ],
+    "import/no-extraneous-dependencies": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

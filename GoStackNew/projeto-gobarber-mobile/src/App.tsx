@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
+import './config/ReactotronConfig';
+
 import AppProvider from './hooks';
 
 import Routes from './routes/index.routes';
